@@ -73,7 +73,7 @@ $$ LANGUAGE plpgsql;
 SELECT * FROM intermedia;
 SELECT * FROM definitiva;
 
-CREATE TRIGGER insert_data
+CREATE TRIGGER InsertaDefinitiva
 BEFORE INSERT ON intermedia
 FOR EACH ROW
 EXECUTE PROCEDURE insert_into_definitiva();
