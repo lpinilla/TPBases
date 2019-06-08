@@ -37,18 +37,18 @@ CREATE OR REPLACE FUNCTION get_month(month CHAR) RETURNS CHAR AS $$
 BEGIN
         RETURN(
                 SELECT CASE
-                        WHEN substr(month) = 'Jan' THEN '01'
-                        WHEN substr(month) = 'Feb' THEN '02'
-                        WHEN substr(month) = 'Mar' THEN '03'
-                        WHEN substr(month) = 'Apr' THEN '04'
-                        WHEN substr(month) = 'May' THEN '05'
-                        WHEN substr(month) = 'Jun' THEN '06'
-                        WHEN substr(month) = 'Jul' THEN '07'
-                        WHEN substr(month) = 'Aug' THEN '08'
-                        WHEN substr(month) = 'Sep' THEN '09'
-                        WHEN substr(month) = 'Oct' THEN '10'
-                        WHEN substr(month) = 'Nov' THEN '11'
-                        WHEN substr(month) = 'Dec' THEN '12'
+                        WHEN month = 'Jan' THEN '01'
+                        WHEN month = 'Feb' THEN '02'
+                        WHEN month = 'Mar' THEN '03'
+                        WHEN month = 'Apr' THEN '04'
+                        WHEN month = 'May' THEN '05'
+                        WHEN month = 'Jun' THEN '06'
+                        WHEN month = 'Jul' THEN '07'
+                        WHEN month = 'Aug' THEN '08'
+                        WHEN month = 'Sep' THEN '09'
+                        WHEN month = 'Oct' THEN '10'
+                        WHEN month = 'Nov' THEN '11'
+                        WHEN month = 'Dec' THEN '12'
                 END
         );
 END;
@@ -77,3 +77,26 @@ CREATE TRIGGER InsertaDefinitiva
 BEFORE INSERT ON intermedia
 FOR EACH ROW
 EXECUTE PROCEDURE insert_into_definitiva();
+
+  
+     
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
