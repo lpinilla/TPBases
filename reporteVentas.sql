@@ -56,7 +56,7 @@ LOOP
         total_revenue := total_revenue + fila.revenue;
         total_cost := total_cost + fila.cost;
         total_margin := total_margin + fila.margin;
-        PERFORM DBMS_OUTPUT.PUT_LINE(cast(myYear as varchar) || CHR(9) || CHR(9) || fila.category || CHR(9) || CHR(9) || CHR(9) || fila.revenue || CHR(9) || CHR(9) || fila.cost || CHR(9) || CHR(9) || fila.margin);
+        PERFORM DBMS_OUTPUT.PUT_LINE(cast(myYear as varchar) || CHR(9) || CHR(9) || fila.category || CHR(9) || CHR(9) || CHR(9) || cast(fila.revenue as integer) || CHR(9) || CHR(9) || cast(fila.cost as integer) || CHR(9) || CHR(9) || cast(fila.margin as integer));
 END LOOP;
         PERFORM DBMS_OUTPUT.PUT_LINE(CHR(9) || 'Total: ' || CHR(9) || CHR(9) || CHR(9) || CHR(9) || CHR(9) || total_revenue || CHR(9) || total_cost || CHR(9) || total_margin);
 CLOSE dataByYear;
