@@ -160,3 +160,5 @@ FOR list_of_years IN
     END LOOP;
 END;
 $$ LANGUAGE plpgsql;
+
+SELECT ReporteVentas(2);
