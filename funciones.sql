@@ -76,11 +76,11 @@ BEGIN
         IF n = 0 THEN
                 RAISE EXCEPTION 'La cantidad de meses anteriores debe ser mayor a 0';
         END IF;
-        RETURN (SELECT AVG(revenue-cost) AS margenmovil
+        RETURN (SELECT round(AVG(revenue-cost)::numeric,2) AS margenmovil
           FROM (
                 SELECT revenue,cost
                 FROM definitiva        
-                WHERE  sales_date <= fecha AND fecha - (n || 'month')::INTERVAL  <=sales_date
+                WHERE  sales_date <= fecha AND fecha - (n || 'month')::INTERVAL  <sales_date
                 ) AS subtable);
 END;
 $$ LANGUAGE plpgsql;
@@ -160,3 +160,4 @@ FOR list_of_years IN
     END LOOP;
 END;
 $$ LANGUAGE plpgsql;
+
