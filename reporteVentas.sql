@@ -26,13 +26,9 @@ $$ LANGUAGE plpgsql;
 -- Devuelve el título del reporte.
 select table_titles();
 
+DROP VIEW report_view;
 
-
-
-CREATE OR REPLACE FUNCTION obtainDataFromYear(in myYear integer) RETURNS VOID AS $$
-DECLARE
-dataByYear CURSOR FOR
-                select a2.category, a2.revenue, a2.cost, a2.margin from
+CREATE VIEW report_view AS (select a2.category, a2.revenue, a2.cost, a2.margin, a2.year from
                         ((SELECT a1.myYear as year, a1.category, a1.revenue, a1.cost, (a1.revenue - a1.cost) as margin
                         FROM (select extract(year from sales_date) as myYear, CONCAT('SALES CHANNEL: ', sales_channel) as category, sum(revenue) as revenue, sum(cost) as cost FROM definitiva group by myYear, sales_channel order by sales_channel) as a1
                         ORDER BY year, category)
@@ -40,11 +36,19 @@ dataByYear CURSOR FOR
                         ((SELECT a1.myYear as year, a1.category, a1.revenue, a1.cost, (a1.revenue - a1.cost) as margin
                         FROM (select extract(year from sales_date) as myYear, CONCAT('CUSTOMER TYPE: ', customer_type) as category, sum(revenue) as revenue, sum(cost) as cost FROM definitiva group by myYear, customer_type order by customer_type) as a1
                         ORDER BY year, category))) as a2
-                where a2.year = myYear;
+                ORDER BY substr(a2.category, 0, 5) DESC, substr(a2.category, 16,1) ASC);
+
+
+CREATE OR REPLACE FUNCTION obtainDataFromYear(in myYear integer) RETURNS VOID AS $$
+DECLARE
+dataByYear CURSOR FOR (SELECT * FROM report_view where year = myYear);
+                
 fila record;
 total_revenue bigint := 0;
 total_cost bigint := 0;
 total_margin bigint := 0;
+year_printed BOOLEAN := 'false';
+year_text CHAR(20) := '                ';
 BEGIN
         PERFORM DBMS_OUTPUT.PUT_LINE ('-----------------------------------------');
         -- CHR(9) es porque en ASCII, el tab o '\t' es el 9
@@ -67,9 +71,15 @@ LOOP
         END IF;
         IF fila.category LIKE '%CUSTOMER%Internet%' THEN fila.category := fila.category || '            ';
         END IF;
-        PERFORM DBMS_OUTPUT.PUT_LINE(cast(myYear as varchar) || '    ' || fila.category || '        ' || cast(fila.revenue as integer) || '    ' || '    ' || cast(fila.cost as integer) || '    ' || cast(fila.margin as integer));
+        IF year_printed = 'false' THEN 
+                year_printed := 'true';
+                year_text := cast(myYear as varchar);
+        ELSE
+                year_text := '*****';
+        END IF;
+        PERFORM DBMS_OUTPUT.PUT_LINE(year_text || '    ' || fila.category || '        ' || cast(fila.revenue as integer) || '    ' || '    ' || cast(fila.cost as integer) || '    ' || cast(fila.margin as integer));
 END LOOP;
-        PERFORM DBMS_OUTPUT.PUT_LINE('Total: ' || '                                                                      ' || total_revenue || '    ' || total_cost || '    ' || total_margin);
+        PERFORM DBMS_OUTPUT.PUT_LINE('Total: ' || '                                                                      ' || total_revenue/2 || '    ' || total_cost/2 || '    ' || total_margin/2);
 CLOSE dataByYear;
 END;
 $$ LANGUAGE plpgsql;

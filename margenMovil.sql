@@ -7,10 +7,16 @@ BEGIN
           FROM (
                 SELECT revenue,cost
                 FROM definitiva        
-                WHERE  sales_date <= fecha AND fecha - (n || 'month')::INTERVAL  <=sales_date
+                WHERE  sales_date <= fecha AND fecha - (n || 'month')::INTERVAL  <sales_date
                 ) AS subtable);
 END;
 $$ LANGUAGE plpgsql;
 
 
 select MargenMovil(to_date('2012-11-01','YYYY-MM-DD'),3);
+
+select MargenMovil(to_date('2012-11-01','YYYY-MM-DD'),4);
+
+select MargenMovil(to_date('2011-09-01','YYYY-MM-DD'),5);
+
+select MargenMovil(to_date('2012-11-01','YYYY-MM-DD'),0);
