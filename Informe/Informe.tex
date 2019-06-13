@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{subfig}
+\usepackage{makecell}
+
+
+\begin{document}
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+\center 
+%opening
+
+\textsc{\LARGE ITBA}\\[1.5cm] 
+\textsc{\Large Base de datos I}\\[0.5cm] 
+\textsc{\large Profesores: Leticia Irene Gomez, Valeria Inés  Soliani, Cecilia  Rodriguez Babino }\\[0.4cm] 
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Trabajo Pr\'actico Especial
+
+\HRule \\[1.5cm]
+ 
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Alumnos:}\\
+Lautaro Pinilla \\
+Micaela Banfi \\
+Nicolas Paganini \\
+
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{} \\
+57504 \\
+57293 \\
+12345 \\
+
+\end{flushright}
+\end{minipage}\\[2cm]
+
+
+{\large 13 de Junio de 2019}\\[2cm]
+
+\vfil
+\end{titlepage}
+
+\section{Introducci\'on}
+En el siguiente trabajo pr\'actico se demostra\'a el uso de conceptos avanzados de SQL, tales como PSM y triggers, vistos a lo largo de la materia. Se trabajar\'a sobre el archivo SalesbyRegion.csv, el cual contiene informaci\'on de ventas de una empresa de Retail. Especificamente debemos migrar los datos del archivo csv a una base de datos, generar un cálculo, producir un reporte y realizar algunas validaciones.
+
+
+
+
+\section{Investigaciones}
+A continuaci\'on se destacan los temas en los cuales se requiri\'o invesigaci\'on. En la secci\'on 3 se detalla para que fueron necesarias dichas investigaciones.
+\begin{itemize}
+\item Date/Time Functions and Operators
+\item Errors and Messages
+\end{itemize}
+
+\section{Dificultades durante el desarrollo y su soluci\'on}
+\subsection{Dificultades en el punto d}
+Se tuvo una pequeña dificultad a la hora de realizar de manera \'optima, y con poco c\'odigo, la selecci\'on de los \'ultimos n meses. En un principio se utilizaron muchas condiciones, sobre todo si los ultimo n meses pertenecían a años diferentes. Luego, se decidi\'o utilizar \textit{Date/Time Functions and Operators}. Estas permiten, dentro de muchas otras cosas, definir un intervalo de tiempo para sumarle o restarle a una fecha dada. \\
+Para la parte del error, se tuvo que investigar como se mandan mensajes de error a la consola. Gracias a la documentaci\'on fue relativamente sencillo encontrar su solucion: \textit{RAISE EXCEPTION}
+
+\section{Proceso de importaci\'on de datos realizado}
+
+\section{Roles de cada integrante}
+\begin{itemize}
+  \item Encargado del informe: Micaela Banfi
+  \item Encargado de las funciones: Nicolas Paganini
+  \item Encargado del trigger: Lautaro Pinilla
+  \item Encargado del funcionamiento global del proyecto: 
+  \item Encargado de investigación: 
+\end{itemize}
+\section{Bibliograf\'ia} 
+\begin{itemize}
+    \item  Postgre SQL.          \textit{https://www.postgresql.org/docs/9.1/functions-datetime.html}
+    \item Postgre SQL.
+    \textit{https://www.postgresql.org/docs/8.1/plpgsql-errors-and-messages.html}
+\end{itemize}
+
+\end{document}
